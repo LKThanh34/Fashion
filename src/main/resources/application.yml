@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: fashion
+  datasource:
+    url: jdbc:mysql://localhost:3307/fashion
+    username: root
+    password: admin1213
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
