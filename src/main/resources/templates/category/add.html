@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Thêm danh mục</title>
+    <link rel="stylesheet" th:href="@{/admin/css/style.css}">
+</head>
+
+<body>
+    <h1>Thêm danh mục mới</h1>
+    <form th:action="@{/categories/add}" th:object="${category}" method="post">
+        <label>Tên danh mục:</label>
+        <input type="text" th:field="*{name}" required><br>
+        <label>Danh mục cha:</label>
+        <select th:field="*{parent}">
+            <option value="">Không có</option>
+            <option th:each="cat : ${categories}" 
+                    th:value="${cat.categoryId}" 
+                    th:text="${cat.name}"></option>
+        </select><br>
+        <label>Mô tả:</label>
+        <textarea th:field="*{description}"></textarea><br>
+        <button type="submit">Lưu</button>
+        <a th:href="@{/categories}">Hủy</a>
+    </form>
+</body>
+
+</html>

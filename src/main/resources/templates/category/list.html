@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Sản Phẩm</title>
+    <link rel="stylesheet" th:href="@{/admin/css/style.css}">
+</head>
+
+<body>
+    <h1>Danh sách danh mục</h1>
+
+    <a th:href="@{/categories/add}">Thêm danh mục mới</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Thuộc</th>
+                <th>Mô tả</th>
+                <th>Thao tác</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.categoryId}"></td>
+                <td th:text="${category.name}"></td>
+                <td th:text="${category.parent != null} ? ${category.parent.name} : 'Không có'"></td>
+                <td th:text="${category.description}"></td>
+                <td>
+                    <a th:href="@{/categories/edit/{id}(id=${category.categoryId})}">Sửa</a>
+                    <a th:href="@{/categories/delete/{id}(id=${category.categoryId})}"
+                        onclick="return confirm('Bạn có chắc muốn xóa?')">Xóa</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
