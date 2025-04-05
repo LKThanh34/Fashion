@@ -1,0 +1,44 @@
+<!-- src/main/resources/templates/admin/variants/list.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Variants of <span th:text="${product.name}"></span></title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Variants of <span th:text="${product.name}"></span></h1>
+    <a th:href="@{/admin/variants/new/{id}(id=${product.productId})}">Add New Variant</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Size</th>
+                <th>Color</th>
+                <th>Stock</th>
+                <th>Price Modifier</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="variant : ${variants}">
+                <td th:text="${variant.variantId}"></td>
+                <td th:text="${variant.size}"></td>
+                <td th:text="${variant.color}"></td>
+                <td th:text="${variant.stock}"></td>
+                <td th:text="${variant.priceModifier}"></td>
+                <td>
+                    <a th:href="@{/admin/variants/edit/{id}(id=${variant.variantId})}">Edit</a> |
+                    <a th:href="@{/admin/variants/delete/{id}(id=${variant.variantId})}"
+                       onclick="return confirm('Are you sure you want to delete this variant?')">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/admin/products}">Back to Products</a>
+</body>
+</html>

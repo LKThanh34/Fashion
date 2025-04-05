@@ -1,0 +1,54 @@
+<!-- src/main/resources/templates/admin/products/list.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product Management</title>
+    <style>
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Product Management</h1>
+    <a th:href="@{/admin/products/new}">Add New Product</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Material</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Created At</th>
+                <th>Variant Count</th>
+                <th>Total Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="product : ${products}">
+                <td th:text="${product.productId}"></td>
+                <td th:text="${product.name}"></td>
+                <td th:text="${product.description}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.material}"></td>
+                <td th:text="${product.category?.name}"></td>
+                <td><img th:src="${product.imageUrl}" alt="Product Image" style="max-width: 50px;" /></td>
+                <td th:text="${product.createdAt}"></td>
+                <td th:text="${#lists.size(product.variants)}"></td>
+                <td th:text="${product.variants != null ? product.variants.stream().map(v -> v.stock).sum() : 0}"></td>
+                <td>
+                    <a th:href="@{/admin/products/edit/{id}(id=${product.productId})}">Edit</a> |
+                    <a th:href="@{/admin/variants/product/{id}(id=${product.productId})}">Variants</a> |
+                    <a th:href="@{/admin/products/delete/{id}(id=${product.productId})}"
+                       onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

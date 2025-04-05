@@ -1,0 +1,35 @@
+<!-- src/main/resources/templates/admin/variants/edit.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Variant for <span th:text="${product.name}"></span></title>
+    <style>
+        .form-group { margin-bottom: 15px; }
+        label { display: inline-block; width: 120px; }
+    </style>
+</head>
+<body>
+    <h1>Edit Variant for <span th:text="${product.name}"></span></h1>
+    <form th:action="@{/admin/variants/update/{id}(id=${variant.variantId})}" 
+          th:object="${variant}" method="post">
+        <div class="form-group">
+            <label for="size">Size:</label>
+            <input type="text" id="size" th:field="*{size}" required />
+        </div>
+        <div class="form-group">
+            <label for="color">Color:</label>
+            <input type="text" id="color" th:field="*{color}" required />
+        </div>
+        <div class="form-group">
+            <label for="stock">Stock:</label>
+            <input type="number" id="stock" th:field="*{stock}" required />
+        </div>
+        <div class="form-group">
+            <label for="priceModifier">Price Modifier:</label>
+            <input type="number" id="priceModifier" th:field="*{priceModifier}" step="0.01" />
+        </div>
+        <button type="submit">Update</button>
+        <a th:href="@{/admin/variants/product/{id}(id=${product.productId})}">Cancel</a>
+    </form>
+</body>
+</html>
